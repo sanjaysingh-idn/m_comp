@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,8 @@ use App\Http\Controllers\CategoryController;
 // });
 
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'add_user']);
+Route::post('/add_user', [AuthController::class, 'add_user']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // User
@@ -42,6 +46,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/product/{id}', [ProductController::class, 'update']);
     Route::delete('/product/{id}', [ProductController::class, 'destroy']);
 
+    // Setting
+    Route::get('/setting', [SettingController::class, 'index']);
+    Route::post('/editsetting/{id}', [SettingController::class, 'editsetting']);
+
     // Category
     Route::get('/category', [CategoryController::class, 'index']);
     Route::post('/category', [CategoryController::class, 'store']);
@@ -50,17 +58,17 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
 
     // Transcactions
-    // Route::get('/transaction', [TransactionController::class, 'index']);
-    // Route::post('/transaction-by-date', [TransactionController::class, 'getTransactionsByDate']);
-    // Route::get('/transaction-today', [TransactionController::class, 'today']);
-    // Route::get('/transaction-week', [TransactionController::class, 'week']);
-    // Route::get('/transaction-month', [TransactionController::class, 'month']);
-    // Route::get('/transaction-year', [TransactionController::class, 'year']);
-    // Route::post('/transaction', [TransactionController::class, 'store']);
-    // Route::get('/transaction/{id}', [TransactionController::class, 'show']);
-    // Route::put('/transaction/{id}', [TransactionController::class, 'update']);
-    // Route::delete('/transaction/{id}', [TransactionController::class, 'destroy']);
-    // Route::get('/total', [TransactionController::class, 'getTotal']);
+    Route::get('/transaction', [TransactionController::class, 'index']);
+    Route::post('/transaction-by-date', [TransactionController::class, 'getTransactionsByDate']);
+    Route::get('/transaction-today', [TransactionController::class, 'today']);
+    Route::get('/transaction-week', [TransactionController::class, 'week']);
+    Route::get('/transaction-month', [TransactionController::class, 'month']);
+    Route::get('/transaction-year', [TransactionController::class, 'year']);
+    Route::post('/transaction', [TransactionController::class, 'store']);
+    Route::get('/transaction/{id}', [TransactionController::class, 'show']);
+    Route::put('/transaction/{id}', [TransactionController::class, 'update']);
+    Route::delete('/transaction/{id}', [TransactionController::class, 'destroy']);
+    Route::get('/total', [TransactionController::class, 'getTotal']);
     // Route::get('/get-latest-invoice-id', [TransactionController::class, 'getLatestInvoiceId']);
     // Route::get('/get-now-invoice-id', [TransactionController::class, 'getNowInvoiceId']);
 });
