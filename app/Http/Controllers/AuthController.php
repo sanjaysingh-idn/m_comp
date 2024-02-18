@@ -14,14 +14,13 @@ class AuthController extends Controller
         $attr = $request->validate([
             'name'     => 'required|string',
             'email'    => 'required|email|unique:users,email',
-            'role'     => 'required',
             'password' => 'required|min:8|confirmed'
         ]);
 
         $user = User::create([
             'name' => $attr['name'],
             'email' => $attr['email'],
-            'role' => $attr['role'],
+            'role' => 'user',
             'password' => bcrypt($attr['password'])
         ]);
 

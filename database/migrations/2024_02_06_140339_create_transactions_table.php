@@ -23,11 +23,14 @@ class CreateTransactionsTable extends Migration
             $table->integer('final_price');
             $table->integer('cash');
             $table->integer('change');
+            $table->integer('ongkir')->nullable();
             $table->string('nama_penerima');
             $table->string('alamat');
             $table->string('provinsi');
             $table->string('kabupaten');
             $table->string('nomor_hp');
+            $table->enum('status', ['diproses', 'dikirim', 'selesai'])->default('diproses');
+            $table->string('no_resi')->nullable();
             $table->timestamps();
         });
     }
